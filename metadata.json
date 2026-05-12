@@ -1,0 +1,10 @@
+{
+  "name": "OutfitLock AI",
+  "description": "AI Fashion fashion image generation tool that preserves outfit designs through reference-based processing.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "Image Upload",
+    "AI Generation",
+    "Fashion Design Preservations"
+  ]
+}
