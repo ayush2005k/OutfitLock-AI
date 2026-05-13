@@ -5,6 +5,10 @@ from rest_framework.response import Response
 
 from django.conf import settings
 
+from .prompt_engine import build_prompt
+from .gemini_service import generate_text
+from .output_service import generate_placeholder_output
+
 
 @api_view(['POST'])
 def generate_images(request):
@@ -46,10 +50,32 @@ def generate_images(request):
 
         uploaded_references.append(file.name)
 
+    # BUILD AI PROMPT
+    prompt = build_prompt()
+
+    # GENERATE AI RESPONSE
+    ai_response = generate_text(prompt)
+
+    # GENERATE PLACEHOLDER OUTPUTS
+    generated_outputs = []
+
+    for _ in range(3):
+
+        image_url = generate_placeholder_output()
+
+        generated_outputs.append(image_url)
+
     return Response({
-        "message": "Files uploaded successfully",
+
+        "message": "Generation completed",
 
         "outfits": uploaded_outfits,
 
-        "references": uploaded_references
+        "references": uploaded_references,
+
+        "prompt_used": prompt,
+
+        "ai_response": ai_response,
+
+        "generated_outputs": generated_outputs
     })
