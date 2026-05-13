@@ -1,8 +1,14 @@
+import os
+import uuid
+
 import vertexai
 
-from vertexai.preview.vision_models import ImageGenerationModel
+from vertexai.preview.vision_models import (
+    ImageGenerationModel
+)
 
 PROJECT_ID = "nifty-inkwell-472218-v5"
+
 REGION = "us-central1"
 
 vertexai.init(
@@ -20,11 +26,20 @@ def generate_fashion_image(prompt):
     images = model.generate_images(
         prompt=prompt,
         number_of_images=1,
-        aspect_ratio="3:4"
+        aspect_ratio="3:4",
+        guidance_scale=18
     )
 
-    output_path = "media/outputs/generated_image.png"
+    filename = f"{uuid.uuid4()}.png"
 
-    images[0].save(location=output_path)
+    output_path = os.path.join(
+        "media",
+        "outputs",
+        filename
+    )
 
-    return "/media/outputs/generated_image.png"
+    images[0].save(
+        location=output_path
+    )
+
+    return f"/media/outputs/{filename}"

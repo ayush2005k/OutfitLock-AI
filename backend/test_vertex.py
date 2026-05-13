@@ -1,21 +1,31 @@
-from api.vertex_image_service import generate_fashion_image
+from api.vertex_image_service import (
+    generate_fashion_image
+)
 
 prompt = """
-Luxury fashion editorial photoshoot.
+Ultra realistic fashion photography.
 
-Preserve exact green oversized t-shirt.
-Same color.
-Same sleeves.
-Same stitching.
-Same texture.
-Same fit.
+Preserve EXACTLY:
+- plain green t-shirt
+- regular fit
+- short sleeves
+- round neck collar
+- minimal design
+- cotton fabric
+- same green color
+- simple basic t-shirt structure
 
-Male model.
-Premium fashion photography.
+Male model in dynamic fashion pose.
+
+Maintain outfit consistency.
+
+Professional ecommerce photography.
 Studio lighting.
-Commercial ecommerce style.
+Highly realistic.
 """
 
-result = generate_fashion_image(prompt)
+result = generate_fashion_image(
+    prompt
+)
 
 print(result)
