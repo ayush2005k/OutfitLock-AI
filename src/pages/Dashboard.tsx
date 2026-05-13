@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { fashionService } from '../services/api';
 import { UploadBox } from '../components/UploadBox';
 import { ReferenceTags } from '../components/ReferenceTags';
 import { SettingsPanel } from '../components/SettingsPanel';
@@ -6,7 +7,7 @@ import { GalleryGrid } from '../components/GalleryGrid';
 import { Loader } from '../components/Loader';
 import { UploadsHistory } from '../components/UploadsHistory';
 import { GalleryHistory } from '../components/GalleryHistory';
-import { Sparkles, History as HistoryIcon, LayoutGrid, Clock } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { 
   OutfitImage, 
@@ -74,18 +75,19 @@ export const Dashboard = ({ activeView }: { activeView: string }) => {
       return;
     }
 
-    setStep('Uploading');
-    
-    // Simulate API calls
-    const wait = (ms: number) => new Promise(res => setTimeout(res, ms));
+    try {
 
-    await wait(1500);
+    setStep('Uploading');
+
+    const outfitRealFiles = outfitFiles.map(item => item.file);
+    const referenceRealFiles = referenceFiles.map(item => item.file);
+
     setStep('Processing');
-    await wait(2000);
+
+    const response = await fashionService.uploadImages(outfitRealFiles, referenceRealFiles);
+
+    console.log("Backend Response:", response);
     setStep('Generating AI images');
-    await wait(3000);
-    setStep('Finalizing outputs');
-    await wait(1000);
 
     // Create dummy outputs
     const newOutputs: GeneratedOutput[] = Array.from({ length: settings.numOutputs }).map((_, i) => ({
@@ -107,7 +109,12 @@ export const Dashboard = ({ activeView }: { activeView: string }) => {
     setHistory(prev => [newSession, ...prev]);
     setOutputs(prev => [...newOutputs, ...prev]);
     setStep('Idle');
-  };
+  } catch (error) {
+    console.error(" Generating failed:", error);
+  } finally {  
+    setStep('Idle');
+  }
+};
 
   const handleRegenerate = (id: string) => {
     console.log("Regenerating", id);
