@@ -128,41 +128,48 @@ def generate_images(request):
     # =========================================
 
     prompt = f"""
-    Ultra realistic fashion photography.
+Create an ultra realistic high-end fashion photoshoot.
 
-    Preserve EXACTLY the following garment:
+STRICT OUTFIT PRESERVATION RULES:
+- preserve EXACT garment design
+- preserve same green color
+- preserve same sleeves
+- preserve same fit
+- preserve same collar
+- preserve same fabric texture
+- preserve stitching and proportions
 
+Garment details:
     {garment_description}
 
-    Maintain:
-    - same outfit structure
-    - same fit
-    - same fabric appearance
-    - same garment type
-    - same sleeves
-    - same collar
-    - same patterns
-    - same colors
+Generate:
+- realistic male fashion model
+- natural standing pose
+- visible full upper body
+- professional fashion photography
+- luxury ecommerce catalog style
+- centered composition
+- clean light gray studio background
+- realistic skin texture
+- realistic anatomy
+- highly detailed fabric folds
+- realistic shadows
+- soft studio lighting
+- premium Zara/H&M fashion campaign style
 
-    Generate realistic editorial fashion photography.
-
-    Professional studio lighting.
-    Highly realistic.
-    Fashion ecommerce quality.
-    """
-
-    # =========================================
-    # OPTIONAL GEMINI PROMPT ENHANCEMENT
-    # =========================================
-
-    ai_response = generate_text(prompt)
+IMPORTANT:
+The t-shirt must be worn naturally by the model.
+Do NOT generate floating clothing.
+Do NOT crop the head.
+Do NOT distort body proportions.
+"""
 
     # =========================================
     # GENERATE FASHION OUTPUTS
     # =========================================
 
     generated_outputs = generate_fashion_image(
-        ai_response
+        prompt
     )
 
     # =========================================
@@ -181,7 +188,7 @@ def generate_images(request):
 
         "prompt_used": prompt,
 
-        "ai_response": ai_response,
+        
 
         "generated_outputs": generated_outputs
     })

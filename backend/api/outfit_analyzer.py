@@ -13,7 +13,7 @@ genai.configure(
 def analyze_outfit(image_path):
 
     model = genai.GenerativeModel(
-        "gemini-1.5-flash"
+        "gemini-2.5-flash"
     )
 
     image = Image.open(image_path)
