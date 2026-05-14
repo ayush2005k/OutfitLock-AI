@@ -25,21 +25,25 @@ def generate_fashion_image(prompt):
 
     images = model.generate_images(
         prompt=prompt,
-        number_of_images=1,
+        number_of_images=4,
         aspect_ratio="3:4",
         guidance_scale=18
     )
 
-    filename = f"{uuid.uuid4()}.png"
+    output_url = []
+    for image in images:
+        filename = f"{uuid.uuid4()}.png"
 
-    output_path = os.path.join(
-        "media",
-        "outputs",
-        filename
-    )
+        output_path = os.path.join(
+            "media",
+            "outputs",
+            filename
+        )
 
-    images[0].save(
-        location=output_path
-    )
+        image.save(
+            location=output_path
+        )
 
-    return f"/media/outputs/{filename}"
+        output_url.append(f"/media/outputs/{filename}")
+
+    return output_url
