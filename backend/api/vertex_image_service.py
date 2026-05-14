@@ -25,7 +25,7 @@ def generate_fashion_image(prompt):
 
     images = model.generate_images(
         prompt=prompt,
-        number_of_images=4,
+        number_of_images=3,
         aspect_ratio="3:4",
         guidance_scale=18
     )

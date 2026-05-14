@@ -55,13 +55,16 @@ export const OutputCard = ({ output, onRegenerate, onDownload }: OutputCardProps
           >
             <RefreshCw size={14} />
           </button>
-          <button
-            onClick={() => onDownload(output.id)}
-            className="p-2 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors text-black"
+          <a
+            href={output.imageUrl}
+            download
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-2 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors text-gray-600"
             title="Download"
           >
             <Download size={14} />
-          </button>
+          </a>
         </div>
       </div>
     </div>

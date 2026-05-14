@@ -60,12 +60,13 @@ export const UploadBox = ({ title, description, onFilesSelected, files, onRemove
           className="hidden"
           ref={fileInputRef}
           onChange={handleFileChange}
-          accept="image/*"
+          accept="image/*,.zip"
         />
         <span className="text-xs text-gray-400 font-medium">Click or drag files</span>
         <div className="mt-1 flex space-x-1 opacity-40">
           <div className="w-5 h-5 bg-white border rounded shadow-sm flex items-center justify-center text-[8px]">JPG</div>
           <div className="w-5 h-5 bg-white border rounded shadow-sm flex items-center justify-center text-[8px]">PNG</div>
+          <div className="w-5 h-5 bg-white border rounded shadow-sm flex items-center justify-center text-[8px]">ZIP</div>
         </div>
       </div>
 
