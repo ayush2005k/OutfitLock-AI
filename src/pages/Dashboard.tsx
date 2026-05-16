@@ -90,13 +90,25 @@ export const Dashboard = ({ activeView }: { activeView: string }) => {
     setStep('Generating AI images');
 
     // Create dummy outputs
-    const newOutputs: GeneratedOutput[] = Array.from({ length: settings.numOutputs }).map((_, i) => ({
-      id: `OUT-${Math.random().toString(36).substr(2, 6).toUpperCase()}`,
-      outfitId: outfitFiles[0].id,
-      imageUrl: `https://picsum.photos/seed/${Math.random() * 1000}/600/800`,
-      status: i === 0 ? 'Consistent' : i % 2 === 0 ? 'Minor Drift' : 'Review Needed',
-      createdAt: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-    }));
+    const newOutputs: GeneratedOutput[] = response.generated_outputs.map(
+      (url: string, index: number) => {
+        return ({
+          id: `OUT-${Math.random().toString(36).substr(2, 6).toUpperCase()}`,
+
+          outfitId: outfitFiles[0].id,
+
+          imageUrl: `http://127.0.0.1:8000${url}`,
+
+          status: 'Consistent',
+
+          createdAt: new Date().toLocaleTimeString([], {
+            hour: '2-digit',
+            minute: '2-digit'
+          })
+        });
+      }
+);
+  
 
     const newSession: GenerationSession = {
       id: `SES-${Math.random().toString(36).substr(2, 6).toUpperCase()}`,
